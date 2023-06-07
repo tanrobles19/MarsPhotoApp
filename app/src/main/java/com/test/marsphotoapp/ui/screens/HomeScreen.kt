@@ -1,9 +1,9 @@
 package com.test.marsphotoapp.ui.screens
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
-fun HomeScreen() {
-    Text(text = "Hello World!")
+fun HomeScreen(marsUIState: MarsUIState, modifier : Modifier = Modifier) {
+
 }

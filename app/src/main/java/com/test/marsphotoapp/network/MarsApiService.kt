@@ -1,6 +1,7 @@
 package com.test.marsphotoapp.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.test.marsphotoapp.model.MarsPhoto
 import kotlinx.serialization.json.Json
 import retrofit2.Retrofit
 import okhttp3.MediaType.Companion.toMediaType
@@ -15,7 +16,7 @@ private val retrofit = Retrofit.Builder()
 
 interface MarsApiService {
     @GET("photos")
-    fun getPhotos(): String
+    suspend fun getPhotos(): List<MarsPhoto>
 }
 
 object MarsApi {
