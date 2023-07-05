@@ -2,8 +2,11 @@ package com.test.marsphotoapp.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.test.marsphotoapp.R
@@ -20,11 +24,11 @@ import com.test.marsphotoapp.model.MarsPhoto
 @Composable
 fun HomeScreen(marsUIState: MarsUIState, modifier : Modifier = Modifier) {
     
-    when(marsUIState) {
-        is MarsUIState.Loading -> LoadingScreen(modifier)
-        is MarsUIState.Success -> MarsPhotoCard(photo = marsUIState.photo, modifier = modifier)
-        is MarsUIState.Error -> ErrorScreen("")
-    }
+//    when(marsUIState) {
+//        is MarsUIState.Loading -> LoadingScreen(modifier)
+//        is MarsUIState.Success -> MarsPhotoCard(photo = marsUIState.photo, modifier = modifier)
+//        is MarsUIState.Error -> ErrorScreen("")
+//    }
     
 }
 
@@ -78,15 +82,26 @@ fun ResultScreen(photos: String, modifier: Modifier) {
 
 @Composable
 fun MarsPhotoCard(photo: MarsPhoto, modifier: Modifier = Modifier) {
-    AsyncImage(
-        model = ImageRequest.Builder(context = LocalContext.current)
-            .data(photo.imgSrc)
-            .crossfade(true)
-            .build(),
-        contentDescription = stringResource(R.string.mars_photo),
-        contentScale = ContentScale.FillBounds
-    )
+
+    Card(
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(photo.imgSrc)
+                .crossfade(true)
+                .build(),
+            contentDescription = stringResource(R.string.mars_photo),
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxWidth(),
+            error = painterResource(id = R.drawable.ic_broken_image),
+            placeholder = painterResource(id = R.drawable.loading_img)
+        )
+    }
 }
+
+//4. Display a grid of images with a LazyVerticalGrid
 
 @Composable
 fun ErrorScreen(photos: String) {

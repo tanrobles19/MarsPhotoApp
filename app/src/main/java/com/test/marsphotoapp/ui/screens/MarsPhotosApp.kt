@@ -2,11 +2,11 @@ package com.test.marsphotoapp.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -29,10 +29,12 @@ fun MarsPhotosApp() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
-            color = MaterialTheme.colors.background
+            color = MaterialTheme.colorScheme.background
         ) {
             val marsViewModel : MarsViewModel = viewModel()
-            HomeScreen(marsUIState = marsViewModel.marsUIState)
+            val retryAction = marsViewModel::getMarsPhotos
+//            HomeScreen(marsUIState = marsViewModel.      marsUIState)
+            HomeScreenGrid(retryAction = retryAction, marsUIState = marsViewModel.marsUIState)
         }
 
     }

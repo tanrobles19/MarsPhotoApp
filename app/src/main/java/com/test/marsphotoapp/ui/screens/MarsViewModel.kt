@@ -10,7 +10,7 @@ import com.test.marsphotoapp.network.MarsApi
 import kotlinx.coroutines.launch
 
 sealed interface MarsUIState{
-    data class Success(val photo: MarsPhoto) :MarsUIState
+    data class Success(val photoList: List<MarsPhoto>) :MarsUIState
     object Error: MarsUIState
     object Loading: MarsUIState
 }
@@ -25,7 +25,8 @@ class MarsViewModel: ViewModel() {
 
     fun getMarsPhotos() {
         viewModelScope.launch {
-            val photoList = MarsApi.retrofitService.getPhotos()[0]
+            val photoList = MarsApi.retrofitService.getPhotos()
+//            val photoList = MarsApi.retrofitService.getPhotos()[0]
 //            marsUIState = MarsUIState.Success(photoList.toString())
             marsUIState = MarsUIState.Success(photoList)
         }
